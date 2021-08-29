@@ -11,6 +11,7 @@ int visited[Max][Max];
 int dy[4] = { 1, -1, 0, 0 };
 int dx[4] = { 0, 0, 1, -1 };
 
+
 int bfs_djik(pii start, pii end){
 	priority_queue<pair<int, pii>> pq;
 	pq.push({0, start});
