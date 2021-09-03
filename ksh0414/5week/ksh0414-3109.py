@@ -17,7 +17,7 @@ def dfs(i, j):
 r, c = map(int, input().split())
 board = []
 for _ in range(r):
-    board.append(input().strip())
+    board.append(list(input().strip()))
 
 ans = 0
 for i in range(r):
