@@ -11,7 +11,7 @@ void solve(){
 	int N, paper, interview;
 	cin >> N;
 	for(int i = 0; i < N; i++){
-		cin >> paper >> interview; 
+		cin >> paper >> interview;
 		arr[paper] = interview;
 	}
 	int beforeVal = arr[1];
