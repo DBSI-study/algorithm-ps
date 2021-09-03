@@ -9,6 +9,6 @@ int main(void){
 		int left = N - cnt5kg * 5;
 		if(left % 3 == 0) {cout << cnt5kg + left / 3 << "\n"; return 0;}
 	}
-	cout << "-1\n";	
+	cout << "-1\n";
 	return 0;
 }

@@ -10,6 +10,7 @@ ll dp[Max][Max];
 int arr[Max][Max];
 
 int main(void){
+	
 	int N;		
 	cin >> N;
 	for(int i = 0; i < N; i++){
