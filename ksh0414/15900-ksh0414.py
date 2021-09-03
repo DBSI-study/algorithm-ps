@@ -14,15 +14,16 @@ def bfs():
             if not visited[n_n]:
                 if len(tree[n_n]) <= 1:
                     leaves_depth += depth+1
-                q.append((n_n, depth+1))
+                else:
+                    q.append((n_n, depth+1))
     return leaves_depth % 2
 
 n = int(input())
 tree = [[] for _ in range(n+1)]
 for _ in range(n-1):
     a, b = map(int, input().split())
-    tree[a].add(b)
-    tree[b].add(a)
+    tree[a].append(b)
+    tree[b].append(a)
 
 if bfs():
     print('Yes')

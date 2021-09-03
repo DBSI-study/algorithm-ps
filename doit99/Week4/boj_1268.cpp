@@ -6,7 +6,7 @@ int main()
 {
 	int stu[1001][6];
 	bool check[6];
-	int n,x,cnt,max_count=0,captain;
+	int n,x,cnt,max_count=0,captain=1;
 	scanf("%d",&n);
 	
 	for(int i=1;i<=n;i++){
