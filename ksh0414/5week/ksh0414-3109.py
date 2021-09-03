@@ -1,6 +1,6 @@
 import sys
 input = sys.stdin.readline
-D = ((-1, 1), (0, 1), (1, 1))
+D = ((-1, 1), (0, 1), (1, 1)) #위에서부터 탐색
 
 def dfs(i, j):
     global visited
