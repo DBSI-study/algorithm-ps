@@ -1,45 +1,30 @@
 #include <iostream>
 using namespace std;
 
-int n,cnt=0;
-int map[101][101];
-int dp[101][101];
 int main()
 {
-	scanf("%d",&n);
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
+	int n;
+	int map[101][101];
+	long long dp[100][100];
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
 			scanf("%d",&map[i][j]);
+	dp[0][0] = 1;
 	
-	int y=0,x=0;
-	bool flag=false;
-	while(y<n)
-	{
-		while(x<n)
-		{
-			printf("now y,x : (%d,%d)\n",y,x);
-			x+=map[y][x];
-			dp[y][x+map[y][x]]=1;
-			if(map[y][x]==0){
-				flag=true;
-				break;
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			if(map[i][j]==0) continue;
+			
+			if(dp[i][j]!=0){
+				if(i+map[i][j]<n)
+					dp[i+map[i][j]][j]+=dp[i][j];
+				if(j+map[i][j]<n)
+					dp[i][j+map[i][j]]+=dp[i][j];
 			}
 		}
-		if(flag) break;
-		x=0;
-		y+=map[y][x];
-		dp[y+map[y][x]][x]++;
 	}
-	
-
-	for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++)
-				printf("%d ",dp[i][j]);
-		printf("\n");
-	}
-	
-	printf("%d",cnt);
-	
-	
-	
+	printf("%lld",dp[n-1][n-1]);
+	return 0;
 }
