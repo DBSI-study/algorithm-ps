@@ -3,6 +3,7 @@
 using namespace std;
 
 int main(void){
+	
 	int N;
 	cin >> N;
 	int cntAlpha[26] = {};
