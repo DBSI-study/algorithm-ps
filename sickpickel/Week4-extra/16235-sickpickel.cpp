@@ -48,7 +48,7 @@ int countLivingTreeAfter(int time){
 					}
 					else{
 						field[i][j] -= now;
-                        tree[i][j][k]++;
+						tree[i][j][k]++;
 					}
 				}
 				field[i][j] += tempfield[i][j];
