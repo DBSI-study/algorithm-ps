@@ -1,3 +1,4 @@
+// 가르침
 #include <bits/stdc++.h>
 
 using namespace std;
