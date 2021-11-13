@@ -4,18 +4,25 @@
 
 using namespace std;
 
+int isSorted(int * arr, int begin, int end){
+	for(int i = begin; i < end; i++){
+		if(arr[i] != i + 1) return 0;
+	}
+	return 1;
+}
 void divideToGroup(vector<pair<int, int>> & group, int * arr, int size){
 	int groupDiff = Max, groupBeginIdx = 0;
 	for(int i = 0; i < size - 1; i++){
 		int diff = arr[i] - arr[i + 1];
 		if(abs(diff) == 1 && groupDiff == Max) groupDiff = diff;
 		else if(groupDiff != diff) {
-			group.push_back({groupBeginIdx, i});
+			if(!isSorted(arr, 0, i + 1)) group.push_back({groupBeginIdx, i});
 			groupBeginIdx = i + 1;
 			groupDiff = Max;
 		}
 	}	
-	group.push_back({groupBeginIdx, size - 1});
+	if(!isSorted(arr, groupBeginIdx, size)) 
+		group.push_back({groupBeginIdx, size - 1});
 }
 
 void copyArr(int * from, int * to, int size){
@@ -29,20 +36,22 @@ void rotate(int begin, int end, int * toRotate){
 		begin++; end--;
 	}
 }
-
-int isSorted(int * arr, int size){
-	for(int i = 0; i < size; i++){
-		if(arr[i] != i + 1) return 0;
-	}
-	return 1;
-}
-
 int solve(vector<pair<int, int>>& answer, int * arr, int N, int cnt){
 
 	int copyarr[Max] = {};
 	vector<pair<int, int>> group;
 
 	divideToGroup(group, arr, N);
+	if(group.size() == 2){
+		for(int i = 0; i < group.size(); i++){
+			int start = group[i].first, end = group[i].second;
+			if(start - end == -1){
+				group.push_back({start, start});
+				group.push_back({end, end});
+				group.erase(group.begin() + i);
+			}
+		}	
+	}
 	// pickGroupsToRotate
 	for(int i = 0; i < group.size(); i++){
 		for(int j = 0; j < group.size() - i; j++){
@@ -53,7 +62,7 @@ int solve(vector<pair<int, int>>& answer, int * arr, int N, int cnt){
 			copyArr(arr, copyarr, N);
 			rotate(begin, end, arr);
 
-			if(isSorted(arr, N)) return 1;
+			if(isSorted(arr, 0, N)) return 1;
 			if(cnt == 0) if(solve(answer, arr, N, cnt + 1)) return 1;
 
 			copyArr(copyarr, arr, N);
@@ -70,7 +79,7 @@ int main(void){
 	for(int i = 0; i < N; i++){
 		cin >> arr[i];
 	}
-	if(isSorted(arr, N)) { cout << "1 1\n1 1\n"; return 0;}
+	if(isSorted(arr, 0, N)) { cout << "1 1\n1 1\n"; return 0;}
 	vector<pair<int, int>> answer;
 	solve(answer, arr, N, 0);
 	
