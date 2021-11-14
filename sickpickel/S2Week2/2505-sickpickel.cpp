@@ -51,6 +51,7 @@ int solve(vector<pair<int, int>>& answer, int * arr, int N, int cnt){
 				group.erase(group.begin() + i);
 			}
 		}	
+		sort(group.begin(), group.end());
 	}
 	// pickGroupsToRotate
 	for(int i = 0; i < group.size(); i++){
