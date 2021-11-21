@@ -1,5 +1,3 @@
-pcroom.c
-
 #include <stdio.h>
 
 

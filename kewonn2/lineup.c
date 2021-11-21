@@ -1,5 +1,3 @@
-lineup.c
-
 #include <stdio.h>
 
 

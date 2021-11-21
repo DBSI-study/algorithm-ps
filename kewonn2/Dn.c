@@ -1,4 +1,4 @@
-Dn.c
+
 
 #include <stdio.h>
 #include <math.h>
