@@ -3,9 +3,8 @@
 #define Max 20001
 
 using namespace std;
-vector<int> graph[Max];
 
-int bfs(int* visited, int start){
+int bfs(vector<vector<int>>& graph, int* visited, int start){
     queue<pii>q;
     q.push({start, 1});
     visited[start] = 1;
@@ -30,18 +29,18 @@ void solve(){
     int visited[Max] = {};
     int V, E, u, v;
     cin >> V >> E;
+    vector<vector<int>> graph(V + 1); 
+
     for(int i = 0; i < E; i++){
         cin >> u >> v;
         graph[u].push_back(v);
         graph[v].push_back(u);
     }
+
     int flag = 1;
     for(int i = 1; i <= V; i++){
         if(visited[i]) continue;
-        if(!bfs(visited, i)) {flag = 0; break;}
-    }
-    for(int i = 1; i <= V; i++){
-        graph[i].clear();
+        if(!bfs(graph, visited, i)) {flag = 0; break;}
     }
     if(flag) cout << "YES\n";
     else cout << "NO\n";
