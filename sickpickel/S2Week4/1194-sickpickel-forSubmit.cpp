@@ -46,7 +46,7 @@ int getShortestPathLen(pii start){
 			// 다음 위치에서 키 획득	
 			if(islower(getValue(next))) nextKeys |= (1 << getValue(next) - 'a' + 1);
 			
-			visited[next.first][next.second] = keys;
+			visited[next.first][next.second] = nextKeys;
 			q.push({next, {nextKeys, distance + 1}});
 		}
 	}
