@@ -17,10 +17,10 @@ int isOutOfRange(pii pos){
     return 0;
 }
 
-int canMeet(queue<pii>& nextSwan, char from, char find){
-	
-	queue<pii> swan = nextSwan;
-	while(!nextSwan.empty()) nextSwan.pop();
+int canMeet(vector<pii>& nextSwan, char from, char find){
+	queue<pii> swan;
+	for(pii elem: nextSwan) swan.push(elem);
+	nextSwan.clear();	
 
     while(!swan.empty()){
         pii now = swan.front();
@@ -34,11 +34,11 @@ int canMeet(queue<pii>& nextSwan, char from, char find){
         for(int i = 0; i < 4; i++){
             pii next = {now.first + dy[i], now.second + dx[i]};
             if(isOutOfRange(next)) continue;
-            if(visitedSwan[next.first][next.second]) continue;
             if(Lake[next.first][next.second] == find) return 1;
+            if(visitedSwan[next.first][next.second]) continue;
 			
             if(Lake[next.first][next.second] == '.') swan.push(next);
-			else nextSwan.push(next); 
+			else nextSwan.push_back(next); 
 			
 			visitedSwan[next.first][next.second] = 1;
         }
@@ -46,11 +46,12 @@ int canMeet(queue<pii>& nextSwan, char from, char find){
     return 0;
 }
 
-void meltIce(queue<pii>& nextWater){
+void meltIce(vector<pii>& nextWater){
 	
-	queue<pii> water = nextWater;	
-	water = nextWater;
-	while(!nextWater.empty()) nextWater.pop();
+	queue<pii> water;
+	for(pii elem: nextWater) water.push(elem);
+	nextWater.clear();
+	
 	
 	while(!water.empty()){
 		pii now = water.front();
@@ -67,7 +68,7 @@ void meltIce(queue<pii>& nextWater){
 			pii next = { now.first + dy[i], now.second + dx[i] };
 			if(isOutOfRange(next)) continue;
 			if(visitedWater[next.first][next.second]) continue;
-			if(Lake[next.first][next.second] == 'X') nextWater.push(next);
+			if(Lake[next.first][next.second] == 'X') nextWater.push_back(next);
 			else water.push(next);
 			
 			visitedWater[next.first][next.second] = 1;
@@ -85,31 +86,32 @@ void printLake(){
 int main(void){
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
-	queue<pii> nextWater, nextSwan[2];
+	vector<pii> nextWater, nextSwan1, nextSwan2;
 	
     cin >> R >> C;
     for(int i = 0; i < R; i++){
         for(int j = 0; j < C; j++){
             cin >> Lake[i][j];
             if(Lake[i][j] == 'L') {
-				if(nextSwan[0].empty()) nextSwan[0].push({i, j});
-				else nextSwan[1].push({i, j});
+				if(nextSwan1.empty()) nextSwan1.push_back({i, j});
+				else { nextSwan2.push_back({i, j}); Lake[i][j] = '^'; }
 			}
-			if(Lake[i][j] != 'X') nextWater.push({i, j});
+			if(Lake[i][j] != 'X') nextWater.push_back({i, j});
         }
     }
 
     int answer = 0;
 	meltIce(nextWater);
-	
-	// 한쪽에서 만나지 못한다면
-    while(!canMeet(nextSwan[0], '*', '^')){
+		
+	while(1){
+		// 한쪽에서 만나지 못한다면
+		if(canMeet(nextSwan1, '*', '^')) break;
 		// 반대쪽도 이동가능한 범위까지 이동
-        canMeet(nextSwan[1], '^', '*');
+		if(canMeet(nextSwan2, '^', '*')) break;
 		// 얼음 녹이기
-        meltIce(nextWater);
-        answer++;
-    }
+		meltIce(nextWater);
+		answer++;
+	}
 	// printLake();
     cout << answer << "\n";
     return 0;
