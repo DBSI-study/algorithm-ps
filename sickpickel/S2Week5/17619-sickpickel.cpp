@@ -54,6 +54,5 @@ int main(void){
 		if(find(start) == find(end)) cout << "1\n";
 		else cout << "0\n";
 	}
-	
 	return 0;
 }
