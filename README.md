@@ -17,9 +17,11 @@
 Please commit your changes or stash them before you merge."
 이런 에러가 났다면, 한 브랜치(main)에서 여러 사람이 작업하여 자신의 로컬 저장소보다 원격 저장소의 변경사항이 더 많은 경우이다.
 
-# git stash
-# git pull
-# git stash pop
+> git stash
+
+> git pull
+
+> git stash pop
 
 위의 명령어로 해결가능하다.
 
